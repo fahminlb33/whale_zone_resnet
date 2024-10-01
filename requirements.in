@@ -1,0 +1,13 @@
+numpy
+pandas
+geopandas
+pyarrow
+
+seaborn
+matplotlib
+
+scikit-learn
+tensorflow[and-cuda]
+
+ipykernel
+jinja2
