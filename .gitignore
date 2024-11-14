@@ -161,6 +161,7 @@ cython_debug/
 
 # Dataset
 dataset/
+results/
 
 # Models
 models/
@@ -170,3 +171,8 @@ logs/
 
 # Temp dir
 temp/
+
+# States
+mlflow.pass
+tune.db
+internet.sh

@@ -1,13 +1,26 @@
 numpy
+scipy
 pandas
 geopandas
 pyarrow
+openpyxl
 
+pydot
 seaborn
 matplotlib
 
+mlflow
+optuna
+joblib
+tbparse
+pydantic
+
+pygam
+xgboost
 scikit-learn
+scikit-learn-intelex
 tensorflow[and-cuda]
 
-ipykernel
+ruff
 jinja2
+ipykernel
