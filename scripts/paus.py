@@ -141,6 +141,10 @@ class NeuralNetClassifier:
         y_pred = self.model.predict(X, verbose=2)
         return np.where(y_pred > 0.5, 1, 0).ravel()
     
+    def predict_proba(self, X):
+        y_pred = self.model.predict(X, verbose=2)
+        return np.array((1.0 - y_pred, y_pred))
+    
     def get_total_params(self) -> tuple[int, int]:        
         return (
             int(sum(np.prod(p) for p in [v.shape for v in self.model.trainable_weights])),
