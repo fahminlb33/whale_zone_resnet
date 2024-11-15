@@ -129,12 +129,15 @@ class NeuralNetClassifier:
         # input_shape = (ds_train.element_spec[0].shape[1],)
         self.create_model(X)
 
+        es = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=10)
+
         self.model.fit(
             X,
             y,
             epochs=self.epochs,
             validation_data=validation_data,
             verbose=self.verbose,
+            callbacks=[es]
         )
 
     def predict(self, X):
@@ -142,8 +145,8 @@ class NeuralNetClassifier:
         return np.where(y_pred > 0.5, 1, 0).ravel()
     
     def predict_proba(self, X):
-        y_pred = self.model.predict(X, verbose=2)
-        return np.array((1.0 - y_pred, y_pred))
+        y_pred = np.asarray(self.model.predict(X, verbose=2)).reshape(-1, 1)
+        return np.hstack((1.0 - y_pred, y_pred))
     
     def get_total_params(self) -> tuple[int, int]:        
         return (

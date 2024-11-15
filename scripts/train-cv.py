@@ -43,7 +43,7 @@ def main(args: CliArguments):
     logger = logging.getLogger(__name__)
 
     logger.info("Loading data...")
-    X_train, y_train = load_dataset(args.train_file)
+    X, y = load_dataset(args.train_file)
 
     logger.info("Loading params...")
     with open(args.params_file, "r") as f:
@@ -56,17 +56,17 @@ def main(args: CliArguments):
         random_state=GLOBAL_RANDOM_SEED,
     )
 
-    for fold_i, (train_idx, test_idx) in enumerate(cv.split(X_train, y_train)):
+    for fold_i, (train_idx, test_idx) in enumerate(cv.split(X, y)):
         logger.info(f"Training fold {fold_i + 1}")
 
         # split data
         X_train, X_test = (
-            X_train.iloc[train_idx],
-            X_train.iloc[test_idx],
+            X.iloc[train_idx],
+            X.iloc[test_idx],
         )
         y_train, y_test = (
-            y_train.iloc[train_idx],
-            y_train.iloc[test_idx],
+            y.iloc[train_idx],
+            y.iloc[test_idx],
         )
 
         logger.info("Creating model...")
@@ -83,7 +83,7 @@ def main(args: CliArguments):
         test_elapsed = time.time() - test_start
 
         metrics = {
-            "algorithm": args.algorithm,
+            "algorithm": args.algorithm.value,
             "training_time": train_elapsed,
             "inference_time": test_elapsed,
             "mcc": matthews_corrcoef(y_test, y_pred),

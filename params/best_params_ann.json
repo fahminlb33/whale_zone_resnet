@@ -1,7 +1,7 @@
 {
     "epochs": 100,
     "batch_size": 512,
-    "depth": 1,
-    "hidden_units": 64,
+    "depth": 3,
+    "hidden_units": 128,
     "loss": "bce"
 }
