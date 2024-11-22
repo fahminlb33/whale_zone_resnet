@@ -71,7 +71,7 @@ def main(args: CliArguments):
     test_elapsed = time.time() - test_start
 
     metrics = {
-        "algorithm": args.algorithm,
+        "algorithm": args.algorithm.value,
         "training_time": train_elapsed,
         "inference_time": test_elapsed,
         "mcc": matthews_corrcoef(y_test, y_pred),
@@ -98,19 +98,19 @@ def main(args: CliArguments):
     fig = Figure()
     ax = fig.subplots()
     ConfusionMatrixDisplay.from_predictions(y_test, y_pred, ax=ax)
-    fig.savefig(fig, os.path.join(args.output_path, "confusion_matrix.png"))
+    fig.savefig(os.path.join(args.output_path, f"{args.algorithm.value}-confusion_matrix.png"))
 
     # plot ROC
     fig = Figure()
     ax = fig.subplots()
     RocCurveDisplay.from_predictions(y_test, y_pred, ax=ax)
-    fig.savefig(fig, os.path.join(args.output_path, "roc_curve.png"))
+    fig.savefig(os.path.join(args.output_path, f"{args.algorithm.value}-roc_curve.png"))
 
     # plot precision-recall
     fig = Figure()
     ax = fig.subplots()
     PrecisionRecallDisplay.from_predictions(y_test, y_pred, ax=ax)
-    fig.savefig(fig, os.path.join(args.output_path, "precision_recall.png"))
+    fig.savefig(os.path.join(args.output_path, f"{args.algorithm.value}-precision_recall.png"))
 
 
 if __name__ == "__main__":
